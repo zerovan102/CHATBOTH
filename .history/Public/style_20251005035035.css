@@ -1,0 +1,225 @@
+/* ======== Global Style ======== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(#ffffff67,
+      rgba(255, 255, 255, 0.192)),
+    url('./bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: #333;
+  backdrop-filter: blur(3px);
+  transition: background 0.6s ease-in-out;
+}
+
+
+/* ======== Chat Container ======== */
+.chat-container {
+  width: 100%;
+  max-width: 620px;
+  height: 90vh;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease;
+}
+
+/* ======== Header ======== */
+.chat-header {
+  padding: 20px;
+  background: linear-gradient(90deg, #1a73e8, #3b82f6);
+  text-align: center;
+  color: white;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* ======== Chat Box ======== */
+.chat-box {
+  flex-grow: 1;
+  padding: 25px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  scroll-behavior: smooth;
+}
+
+.message {
+  display: flex;
+  max-width: 85%;
+  transition: all 0.3s ease;
+}
+
+.message-content {
+  padding: 14px 20px;
+  border-radius: 20px;
+  line-height: 1.5;
+  font-size: 0.96rem;
+  white-space: pre-wrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* ======== User Message ======== */
+.user-message {
+  align-self: flex-end;
+  animation: slideInRight 0.4s ease;
+}
+
+.user-message .message-content {
+  background: linear-gradient(135deg, #1a73e8, #3b82f6);
+  color: #ffffff;
+  border-bottom-right-radius: 5px;
+}
+
+/* ======== Bot Message ======== */
+.bot-message {
+  align-self: flex-start;
+  animation: slideInLeft 0.4s ease;
+}
+
+.bot-message .message-content {
+  background-color: #f2f5f8;
+  color: #333;
+  border-bottom-left-radius: 5px;
+}
+
+/* ======== Footer ======== */
+.chat-footer {
+  padding: 20px;
+  border-top: 1px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ======== Suggestions ======== */
+.suggestions-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.suggestion-button {
+  background: #f3f6fa;
+  border: 1px solid #dce3ef;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  color: #1a73e8;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.suggestion-button:hover {
+  background: #e4edfb;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(26, 115, 232, 0.15);
+}
+
+/* ======== Input Area ======== */
+.chat-form {
+  display: flex;
+  gap: 10px;
+}
+
+#user-input {
+  flex-grow: 1;
+  border: 1px solid #d0d7e2;
+  border-radius: 25px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  outline: none;
+  background: #ffffff;
+  transition: all 0.3s ease;
+}
+
+#user-input:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 6px rgba(26, 115, 232, 0.2);
+}
+
+button[type="submit"] {
+  background: linear-gradient(135deg, #1a73e8, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.2);
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(26, 115, 232, 0.3);
+}
+
+button[type="submit"]:disabled {
+  background: #a0c3ff;
+  cursor: not-allowed;
+}
+
+/* ======== Scrollbar ======== */
+.chat-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+  background-color: #d0d7e2;
+  border-radius: 10px;
+}
+
+/* ======== Animations ======== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

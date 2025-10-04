@@ -7,17 +7,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY.trim() === '') {
-    console.error("\nFATAL ERROR: GEMINI_API_KEY is not defined in your .env file.");
+    console.error("\nFATAL ERROR: GEMINI_API_KEY is not defined or is empty in your .env file.");
     process.exit(1);
 }
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY.trim());
-
-// --- SOLUSI: Menggunakan model 'gemini-pro' yang paling stabil ---
-const chatModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-const suggestModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-const model = chatModel; // Gunakan model yang sama untuk chat dan suggestions
-// -----------------------------------------------------------------
+// --- SOLUSI: Menggunakan model 'gemini-1.5-flash-latest' ---
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-latest" });
 
 app.use(cors());
 app.use(express.json());
@@ -45,7 +41,7 @@ app.post('/chat', async (req, res) => {
         const response = result.response;
         const text = response.text();
 
-        console.log(`[${new Date().toLocaleTimeString()}] Mengirim balasan: "${text.substring(0, 70)}..."`);
+        console.log(`[${new Date().toLocaleTimeString()}] Mengirim balasan: "${text.substring(0, 50)}..."`);
 
         res.status(200).json({ data: text });
 

@@ -7,17 +7,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY.trim() === '') {
-    console.error("\nFATAL ERROR: GEMINI_API_KEY is not defined in your .env file.");
+    console.error("\nFATAL ERROR: GEMINI_API_KEY is not defined or is empty in your .env file.");
     process.exit(1);
 }
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY.trim());
-
-// --- SOLUSI: Menggunakan model 'gemini-pro' yang paling stabil ---
-const chatModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-const suggestModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-const model = chatModel; // Gunakan model yang sama untuk chat dan suggestions
-// -----------------------------------------------------------------
+// SOLUSI: Menggunakan model 'gemini-pro' yang stabil dan tersedia secara luas
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 app.use(cors());
 app.use(express.json());
@@ -26,15 +22,11 @@ app.use(express.static('public'));
 app.post('/chat', async (req, res) => {
     try {
         const { history } = req.body;
-
         if (!history || !Array.isArray(history)) {
             return res.status(400).json({ message: 'History is required and must be an array.' });
         }
 
-        console.log(`[${new Date().toLocaleTimeString()}] Menerima riwayat dengan ${history.length} pesan.`);
-
         const userPrompt = history.pop().content;
-
         const geminiHistory = history.map(msg => ({
             role: msg.role === 'user' ? 'user' : 'model',
             parts: [{ text: msg.content }],
@@ -45,14 +37,10 @@ app.post('/chat', async (req, res) => {
         const response = result.response;
         const text = response.text();
 
-        console.log(`[${new Date().toLocaleTimeString()}] Mengirim balasan: "${text.substring(0, 70)}..."`);
-
         res.status(200).json({ data: text });
 
     } catch (error) {
-        console.error('\n--- ERROR DI BACKEND ---');
-        console.error(error);
-        console.error('----------------------\n');
+        console.error('\n--- ERROR DI BACKEND ---', error);
         res.status(500).json({ message: 'Internal Server Error. Check terminal for details.' });
     }
 });
@@ -72,6 +60,5 @@ app.post('/generate-suggestions', async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`\nServer berjalan di http://localhost:${PORT}`);
-    console.log("Pastikan file .env berisi GEMINI_API_KEY yang valid.\n");
 });
 

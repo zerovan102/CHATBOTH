@@ -14,9 +14,7 @@ if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY.trim() === '') {
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY.trim());
 
 // --- SOLUSI: Menggunakan model 'gemini-pro' yang paling stabil ---
-const chatModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-const suggestModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-const model = chatModel; // Gunakan model yang sama untuk chat dan suggestions
+const model = genAI.getGenerativeModel({ model: "gemini 2.5 flash" });
 // -----------------------------------------------------------------
 
 app.use(cors());
