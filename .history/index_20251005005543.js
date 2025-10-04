@@ -1,26 +1,46 @@
-// 1. Menggunakan NAMA PAKET YANG BENAR
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 
+// Inisialisasi express
 const app = express();
 
-// 2. Deklarasi PORT HANYA SATU KALI
-const PORT = process.env.PORT || 3000;
-
+// Inisialisasi Google AI client (tidak ada perubahan di sini)
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-// Anda bisa menggunakan gemini-1.5-flash atau model lain yang tersedia
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
+// Inisialisasi middleware
 app.use(cors());
 app.use(express.json());
 
-// Ini akan menyajikan file HTML, CSS, dan JS dari folder 'public'
-app.use(express.static('public'));
+//extractedText
+function extractedText(response) {
+    try {
+        const text =
+            resp?.response?.candidates?.[0]?.contents?.parts?.[0]?.text ??
+            resp?.candidates?.content?.parts?.[0]?.text ??
+            resp?.response?.candidates?.[0]?.content?.text ??
+            resp?.response?.candidates?.[0]?.text ??
+            resp?.response?.text() ??
+            "No text found";
+        return text ?? JSON.stringify(resp, null, 2);
+    } catch (error) {
+        console.error("Error extracting text:", error);
+        return JSON.stringify(resp, null, 2);
+    }
+}
 
-// 3. LOGIKA YANG SESUAI DENGAN FRONTEND
-// Endpoint ini menerima satu 'message' string, bukan array.
+// Endpoint GET untuk tes
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: 'API is running!',
+        data: null,
+        success: true
+    });
+});
+
+// Endpoint POST untuk chat
 app.post('/chat', async (req, res) => {
     try {
         const { message } = req.body;
@@ -36,7 +56,6 @@ app.post('/chat', async (req, res) => {
         const response = result.response;
         const text = response.text();
 
-        // Mengirim kembali respons dalam format { data: '...' } yang diharapkan frontend
         res.status(200).json({
             message: 'Success',
             data: text,
@@ -53,7 +72,8 @@ app.post('/chat', async (req, res) => {
     }
 });
 
+// Menjalankan server
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
-
