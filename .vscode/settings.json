@@ -1,7 +1,0 @@
-{
-    "php.validate.executablePath": "D:\\AKTIF FOLDER\\Program APK\\XAMPP\\php\\php.exe",
-    "php.validate.enable": false,
-    "php.suggest.basic": false,
-    "intelephense.environment.phpVersion": "8.2.0",
-    "intelephense.files.maxSize": 5000000
-}
