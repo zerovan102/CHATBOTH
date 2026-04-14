@@ -1,0 +1,18 @@
+# Laravel / PHP files (tidak diperlukan)
+vendor/
+storage/
+bootstrap/cache/
+app/
+config/
+database/
+resources/
+routes/
+tests/
+composer.json
+composer.lock
+phpunit.xml
+artisan
+
+# Dev files
+.env
+debug.js
