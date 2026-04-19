@@ -1,6 +1,6 @@
 # 🤖 CHATBOTH (Modern AI Chatbot Dashboard)
 <img width="1919" height="945" alt="image" src="https://github.com/user-attachments/assets/bd598489-4b1e-4dd1-a0c3-52e806f58fff" />
-CHATBOTH adalah proyek web aplikasi dashboard chatbot interaktif dan modern yang dibangun menggunakan framework **Laravel**. Aplikasi ini dilengkapi dengan antarmuka bertema terang (light-themed), desain *glassmorphism* modern, serta berbagai fitur interaktif canggih yang diintegrasikan langsung dengan **Groq API (Llama 3.3)** untuk memberikan respon percakapan yang sangat cepat dan stabil.
+CHATBOTH adalah proyek web aplikasi dashboard chatbot interaktif dan modern yang dibangun menggunakan framework Laravel. Aplikasi ini dilengkapi dengan antarmuka bertema terang (light-themed), desain glassmorphism modern, serta berbagai fitur interaktif canggih yang diintegrasikan langsung dengan **Groq API (Llama 3.3) untuk memberikan respon percakapan yang sangat cepat dan stabil.
 
 ---
 
